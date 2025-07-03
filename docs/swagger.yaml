@@ -1,0 +1,646 @@
+basePath: /api
+definitions:
+  dto.BookResponse:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        items:
+          $ref: '#/definitions/dto.GetAllBooksResponse'
+        type: array
+      message:
+        example: success
+        type: string
+      status:
+        example: success
+        type: string
+    type: object
+  dto.BookSwagger:
+    properties:
+      category:
+        example: Self Development
+        type: string
+      id:
+        example: 1
+        type: integer
+      name:
+        example: Atomic Habits
+        type: string
+      rental_cost:
+        example: 20000
+        type: integer
+      stok:
+        example: 5
+        type: integer
+    type: object
+  dto.BookSwaggerByIDResponse:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        $ref: '#/definitions/dto.BookSwagger'
+      message:
+        example: success
+        type: string
+      status:
+        example: success
+        type: string
+    type: object
+  dto.CreateBookResponse:
+    properties:
+      code:
+        example: 200
+        type: integer
+      message:
+        example: success create book
+        type: string
+      status:
+        example: success
+        type: string
+    type: object
+  dto.ErrorResponse:
+    properties:
+      code:
+        example: 400
+        type: integer
+      details: {}
+      message:
+        example: something went wrong
+        type: string
+      status:
+        example: error
+        type: string
+    type: object
+  dto.GetAllBooksResponse:
+    properties:
+      category:
+        example: programming
+        type: string
+      id:
+        example: 0
+        type: integer
+      name:
+        example: johndoe
+        type: string
+      rental_cost:
+        example: 1
+        type: integer
+      stok:
+        example: 1
+        type: integer
+    type: object
+  dto.GetBookData:
+    properties:
+      category:
+        example: Self Development
+        type: string
+      id:
+        example: 1
+        type: integer
+      name:
+        example: Atomic Habits
+        type: string
+      rental_cost:
+        example: 20000
+        type: integer
+      stok:
+        example: 5
+        type: integer
+    type: object
+  dto.LoginRequest:
+    properties:
+      email:
+        example: johndoe@gmail.com
+        type: string
+      password:
+        example: "123456"
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  dto.LoginSuccessResponse:
+    properties:
+      token:
+        example: your-jwt-token
+        type: string
+    type: object
+  dto.RegisterRequest:
+    properties:
+      email:
+        example: johndoe@gmail.com
+        type: string
+      name:
+        example: John Doe
+        type: string
+      password:
+        example: "123456"
+        type: string
+    required:
+    - email
+    - name
+    - password
+    type: object
+  dto.RegisterResponse:
+    properties:
+      email:
+        example: johndoe@gmail.com
+        type: string
+      name:
+        example: John Doe
+        type: string
+      role:
+        example: user
+        type: string
+    type: object
+  dto.RegisterSuccessResponse:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        $ref: '#/definitions/dto.RegisterResponse'
+      message:
+        example: success
+        type: string
+      status:
+        example: success
+        type: string
+    type: object
+  dto.RentalDataResponse:
+    properties:
+      book_id:
+        example: 1
+        type: integer
+      rent_date:
+        example: "2020-01-01"
+        type: string
+      return_date:
+        example: "2020-01-01"
+        type: string
+      status:
+        example: borrowed
+        type: string
+    required:
+    - book_id
+    type: object
+  dto.RentalRequest:
+    properties:
+      book_id:
+        example: 1
+        type: integer
+    required:
+    - book_id
+    type: object
+  dto.RentalResponse:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        $ref: '#/definitions/dto.RentalDataResponse'
+      message:
+        example: success
+        type: string
+      status:
+        example: success
+        type: string
+    type: object
+  dto.RentalUserDataResponse:
+    properties:
+      book_id:
+        example: 2
+        type: integer
+      book_title:
+        example: Atomic Habits
+        type: string
+      rent_date:
+        example: "2025-07-03"
+        type: string
+      rental_id:
+        example: 1
+        type: integer
+      return_date:
+        example: "2025-07-10"
+        type: string
+      status:
+        example: Borrowed
+        type: string
+    type: object
+  dto.RentalUserResponse:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        items:
+          $ref: '#/definitions/dto.RentalUserDataResponse'
+        type: array
+      message:
+        example: Rental list
+        type: string
+      status:
+        example: success
+        type: string
+    type: object
+  dto.UpdateBookByIDResponse:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        $ref: '#/definitions/dto.UpdateResoponse'
+      message:
+        example: success
+        type: string
+      status:
+        example: success
+        type: string
+    type: object
+  dto.UpdateBookRequest:
+    properties:
+      category:
+        type: string
+      name:
+        type: string
+      rental_cost:
+        minimum: 0
+        type: integer
+      stok:
+        minimum: 0
+        type: integer
+    required:
+    - category
+    - name
+    - rental_cost
+    - stok
+    type: object
+  dto.UpdateResoponse:
+    properties:
+      category:
+        example: programming
+        type: string
+      id:
+        example: 2
+        type: integer
+      name:
+        example: johndoe
+        type: string
+      rental_cost:
+        example: 1
+        type: integer
+      stok:
+        example: 1
+        type: integer
+    type: object
+  dto.UserDataResponse:
+    properties:
+      deposit:
+        example: 4
+        type: integer
+      email:
+        example: johndoe@example.com
+        type: string
+      name:
+        example: John doe
+        type: string
+    type: object
+  dto.UserResponse:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        $ref: '#/definitions/dto.UserDataResponse'
+      message:
+        example: Success Get User
+        type: string
+      status:
+        example: Success
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: tatakarai@gmail.com
+    name: Tatakarai
+  description: This is an Pojok Baca API
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  termsOfService: http://swagger.io/terms/
+  title: Pojok Baca API
+  version: "1.0"
+paths:
+  /products:
+    get:
+      description: Retrieve all available books with stock and rental info
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.BookResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Get all books
+      tags:
+      - Books
+    post:
+      consumes:
+      - application/json
+      description: Only admin users can create books
+      parameters:
+      - description: Book creation request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.GetBookData'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.CreateBookResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Create a new book
+      tags:
+      - Books
+  /products/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Only admin can delete a book by ID
+      parameters:
+      - description: Book ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete a book by its ID
+      tags:
+      - Books
+    get:
+      consumes:
+      - application/json
+      description: Get a single book using its ID
+      parameters:
+      - description: Book ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.BookSwaggerByIDResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Get a book by its ID
+      tags:
+      - Books
+    put:
+      consumes:
+      - application/json
+      description: Only admin can update a book's information
+      parameters:
+      - description: Book ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update Book Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UpdateBookRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.UpdateBookByIDResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update a book by its ID
+      tags:
+      - Books
+  /rentals:
+    get:
+      description: Returns a list of rental data for the authenticated user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.RentalUserResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get rental history by logged-in user
+      tags:
+      - Rentals
+    post:
+      consumes:
+      - application/json
+      description: Create a new book rental by user. Requires login.
+      parameters:
+      - description: Rental request payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.RentalRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.RentalResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Create a rental
+      tags:
+      - Rentals
+  /user/login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate user and get JWT token
+      parameters:
+      - description: Login Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.LoginSuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: User login
+      tags:
+      - Users
+  /user/profile:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve user profile based on JWT token
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get current logged-in user data
+      tags:
+      - Users
+  /user/register:
+    post:
+      consumes:
+      - application/json
+      description: Create a new user account (name, email, password required)
+      parameters:
+      - description: User registration request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.RegisterSuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Register a new user
+      tags:
+      - Users
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
