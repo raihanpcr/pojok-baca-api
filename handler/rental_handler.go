@@ -77,6 +77,14 @@ func (h *RentalHandler) CreateRental(c echo.Context) error {
 
 	//Check deposit
 	user, err := h.userService.GetUserByEmail(email)
+	if user.Deposit == nil {
+		return c.JSON(http.StatusBadRequest, dto.ErrorResponse{
+			Status:  "Bad Request",
+			Code:    http.StatusBadRequest,
+			Message: "Deposit not found for this user",
+		})
+	}
+
 	userDepo := user.Deposit
 	bookCost := book.RentalCost
 	if *userDepo < bookCost {

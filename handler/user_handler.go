@@ -1,15 +1,16 @@
 package handler
 
 import (
-	"github.com/golang-jwt/jwt/v4"
-	"github.com/labstack/echo/v4"
-	"golang.org/x/crypto/bcrypt"
 	"net/http"
 	"os"
 	"pojok-baca-api/dto"
 	"pojok-baca-api/model"
 	"pojok-baca-api/service"
 	"time"
+
+	"github.com/golang-jwt/jwt/v4"
+	"github.com/labstack/echo/v4"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type UserHandler struct {
@@ -36,7 +37,7 @@ func (h *UserHandler) CreateUser(c echo.Context) error {
 	var u model.User
 	if err := c.Bind(&u); err != nil {
 		return c.JSON(http.StatusBadRequest, dto.ErrorResponse{
-			Status:  "error",
+			Status:  "Error",
 			Code:    http.StatusBadRequest,
 			Message: "Invalid JSON",
 			Details: err.Error(),
@@ -46,7 +47,7 @@ func (h *UserHandler) CreateUser(c echo.Context) error {
 	//name, email, password not fill
 	if u.Name == "" || u.Email == "" || u.Password == "" {
 		return c.JSON(http.StatusBadRequest, dto.ErrorResponse{
-			Status:  "error",
+			Status:  "Error",
 			Code:    http.StatusBadRequest,
 			Message: "name, email, password required",
 		})
@@ -77,7 +78,7 @@ func (h *UserHandler) CreateUser(c echo.Context) error {
 	user, err := h.Service.CreateUser(u)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, dto.ErrorResponse{
-			Status:  "error",
+			Status:  "Error",
 			Code:    http.StatusInternalServerError,
 			Message: "Failed to create user",
 			Details: err.Error(),

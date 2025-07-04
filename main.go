@@ -7,7 +7,6 @@ import (
 	_ "pojok-baca-api/docs"
 	"pojok-baca-api/handler"
 	"pojok-baca-api/middleware"
-	"pojok-baca-api/model"
 	"pojok-baca-api/repository"
 	"pojok-baca-api/service"
 
@@ -37,9 +36,9 @@ func main() {
 	config.LoadEnv()
 	db := config.DBInit()
 
-	if err := db.AutoMigrate(&model.User{}, &model.Book{}, &model.Rental{}, &model.DepositTransaction{}); err != nil {
-		panic("Auto migrate fail : " + err.Error())
-	}
+	//if err := db.AutoMigrate(&model.User{}, &model.Book{}, &model.Rental{}, &model.DepositTransaction{}); err != nil {
+	//	panic("Auto migrate fail : " + err.Error())
+	//}
 
 	log.Println("Auto migrate success")
 
@@ -93,6 +92,5 @@ func main() {
 	if port == "" {
 		port = "8080"
 	}
-
 	e.Logger.Fatal(e.Start(":" + port))
 }

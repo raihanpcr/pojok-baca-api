@@ -70,3 +70,47 @@ func TestCreateUser_Success(t *testing.T) {
 
 	mockService.AssertExpectations(t)
 }
+
+func TestCreateUser_DuplicateEmail(t *testing.T) {
+	e := echo.New()
+	mockService := new(service.UserServiceMock)
+
+	userHandler := handler.UserHandler{
+		Service: mockService,
+	}
+
+	//simulasi : user daftar
+	userInput := model.User{
+		Name:     "Raihan",
+		Email:    "raihan@mail.com",
+		Password: "password123",
+	}
+
+	//simulasi : Email yang sudah terdaftar
+	mockService.On("GetUserByEmail", userInput.Email).
+		Return(model.User{
+			Name:  "Raihan",
+			Email: "raihan@mail.com",
+			Role:  "user",
+		}, nil) // nil error = email ditemukan
+
+	body, _ := json.Marshal(userInput)
+	req := httptest.NewRequest(http.MethodPost, "/users", bytes.NewBuffer(body))
+	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	rec := httptest.NewRecorder()
+	c := e.NewContext(req, rec)
+
+	err := userHandler.CreateUser(c)
+
+	assert.NoError(t, err)
+	assert.Equal(t, http.StatusConflict, rec.Code)
+
+	var response dto.ErrorResponse
+	err = json.Unmarshal(rec.Body.Bytes(), &response)
+	assert.NoError(t, err)
+	assert.Equal(t, "Error", response.Status)
+	assert.Equal(t, http.StatusConflict, response.Code)
+	assert.Equal(t, "Email already exists", response.Message)
+
+	mockService.AssertExpectations(t)
+}

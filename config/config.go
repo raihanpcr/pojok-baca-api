@@ -23,7 +23,7 @@ func DBInit() *gorm.DB {
 	name := os.Getenv("DB_NAME")
 
 	dsn := fmt.Sprintf(
-		"host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
+		"host=%s user=%s password=%s dbname=%s port=%s sslmode=require",
 		host, user, pass, name, port,
 	)
 	log.Println("DSN :", dsn)
