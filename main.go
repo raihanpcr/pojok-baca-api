@@ -52,13 +52,21 @@ func main() {
 	bookService := service.NewBookService(bookRepo)
 	bookHandler := handler.NewProductHandler(bookService)
 
+	//Rental
 	rentalRepo := repository.NewRentalRepository(db)
 	rentalService := service.NewRentalService(rentalRepo)
 	rentalHandler := handler.NewRentalHandler(rentalService, bookService, userService)
 
+	//Transaction
+	tranRepo := repository.NewDepositTransactionRepository(db)
+	tranService := service.NewDepositService(tranRepo, userRepo)
+	tranHandler := handler.NewDepositTransactionHandler(tranService)
+
 	e := echo.New()
 
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
+
+	e.POST("/webhook/deposit", tranHandler.Webhook)
 	//group api
 	api := e.Group("/api")
 
@@ -78,6 +86,7 @@ func main() {
 
 	user.Use(middleware.JWTMiddleware(jwtSecret))
 	user.GET("/me", userHandler.GetDataByID)
+	user.POST("/deposit", tranHandler.Create)
 
 	productGroup.Use(middleware.JWTMiddleware(jwtSecret))
 	productGroup.POST("", bookHandler.CreateBook)
